@@ -1,7 +1,8 @@
+import React from "react";
 import {Route, Routes} from "react-router-dom"
 import HomePage from "./pages/home"
 
-const App = () => {
+const App: React.FC = () => {
     return (
         <>
             <Routes>
