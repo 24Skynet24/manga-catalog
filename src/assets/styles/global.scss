@@ -1,0 +1,29 @@
+@import "tailwind";
+@import "../fonts/cent_comics";
+@import "../fonts/roboto";
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+html {
+  font-size: 10px;
+}
+
+a, button, input {
+  outline: none;
+}
+
+a, button {
+  cursor: pointer;
+  text-decoration: none;
+}
