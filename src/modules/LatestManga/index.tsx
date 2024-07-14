@@ -9,7 +9,7 @@ const LatestManga = () => {
     const [latestList, setList] = useState<MangaType[]>([])
     useEffect(() => {
         const getFetch = async () => {
-            const res = await services.mangaServices.getMangaLatestList()
+            const res = await services.MangaServices.getMangaLatestList()
             if (res) setList(res)
         }
         getFetch()
