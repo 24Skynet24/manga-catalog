@@ -1,5 +1,7 @@
-import mangaServices from "./mangaServices"
+import MangaServices from "./MangaServices"
+import LocalStorage from "./LocalStorage";
 
 export default {
-    mangaServices,
+    MangaServices,
+    LocalStorage,
 }
