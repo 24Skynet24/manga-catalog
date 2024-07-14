@@ -1,8 +1,10 @@
+import LatestManga from "../../modules/LatestManga";
+
 const HomePage = () => {
     return (
-        <div>
-
-        </div>
+        <main className="c_container">
+            <LatestManga/>
+        </main>
     )
 }
 
