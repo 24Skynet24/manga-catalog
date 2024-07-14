@@ -19,6 +19,11 @@ html {
   font-size: 10px;
 }
 
+body {
+  background: $white;
+  color: $_black;
+}
+
 a, button, input {
   outline: none;
 }
@@ -35,4 +40,9 @@ main {
 .c_container {
   width: 85%;
   margin: 0 auto;
+}
+
+.dark_mode {
+  background: $_black;
+  color: $white;
 }
