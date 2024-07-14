@@ -1,14 +1,12 @@
 import "./header.scss"
-import {Link} from "react-router-dom"
 import {Button} from "@mui/material";
+import LogoLink from "../../UI/Links/LogoLink";
 
 const Header = () => {
     return (
         <header className="header">
             <div className="c_container flex-align-center flex-between">
-                <Link className="logo_link" to="/">
-                    <img src="./src/assets/img/Logo%201.svg" alt=""/>
-                </Link>
+                <LogoLink/>
                 <nav>
                     <ul className="flex-align-center gap-12">
                         <li>test 1</li>
