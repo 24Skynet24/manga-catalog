@@ -1,7 +1,13 @@
 section.latest_updates {
+  margin-bottom: 5rem;
+
   h3 {
     font-size: 2.4rem;
     font-weight: 500;
     margin-bottom: 2rem;
+  }
+
+  .latest_updates_container {
+    height: 30rem;
   }
 }
