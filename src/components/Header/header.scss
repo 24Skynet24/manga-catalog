@@ -5,6 +5,15 @@ header.header {
   nav ul li {
     font-size: 1.8rem;
     font-weight: 500;
+    cursor: pointer;
+
+    a, span {
+      transition: color .125s ease-in-out;
+
+      &:hover {
+        color: $white;
+      }
+    }
   }
 
   .theme_button {
