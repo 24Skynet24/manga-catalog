@@ -10,9 +10,9 @@ const LatestManga = () => {
     useEffect(() => {
         const getFetch = async () => {
             const res = await services.mangaServices.getMangaLatestList()
-            setList(res)
+            if (res) setList(res)
         }
-        getFetch().then(r => r)
+        getFetch()
     }, [])
 
     return (
