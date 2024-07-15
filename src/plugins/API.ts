@@ -1,17 +1,22 @@
-import {ApiArgs} from "../types/api_type";
+import {ApiArgs} from "../types/apiType";
 
-export default async function ({url, method = 'GET', headers, body}: ApiArgs) {
-    const baseUrl: string = import.meta.env.VITE_API_URL
+export default async function ({url, query, method = 'GET', headers, body}: ApiArgs) {
+    let baseUrl: string = import.meta.env.VITE_API_URL + url
+
+    if (query) {
+        baseUrl += "?"
+        Object.keys(query).map(key => {
+            baseUrl += `${key}=${query[key]}&`
+        })
+    }
 
     const defaultHeaders: Headers = new Headers()
-    defaultHeaders.set("x-rapidapi-key", import.meta.env.VITE_RAPIDAPI_KEY)
-    defaultHeaders.set("x-rapidapi-host", import.meta.env.VITE_RAPIDAPI_HOST)
     if (headers) Object.keys(headers).map(key => {
         defaultHeaders.set(key, `${headers[key]}`)
     })
 
     try {
-        const res = await fetch(baseUrl + url, {method, body, headers: defaultHeaders})
+        const res = await fetch(baseUrl, {method, body, headers: defaultHeaders})
         return await res.json()
     }
     catch (e) {
