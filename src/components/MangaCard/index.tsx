@@ -6,10 +6,13 @@ const MangaCard = ({id, attributes}: MangaType) => {
     const imgUrl: string = `url(https://uploads.mangadex.org/covers/${id}/${attributes.img})`
     return (
         <article className="manga_card" title={attributes.title.en}>
-            <Link to={`/manga/${id}`}>
-                <div className="manga_card_img" style={{
-                    backgroundImage: imgUrl,
-                }}/>
+            <Link to={`/title/${id}`}>
+                <div
+                    className="manga_card_img"
+                    style={{
+                        backgroundImage: imgUrl,
+                    }}
+                />
             </Link>
         </article>
     )
