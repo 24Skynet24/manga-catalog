@@ -7,10 +7,10 @@ import "./latestManga.scss"
 import collectingMangaCover from "../../utils/collectingMangaCover";
 
 const LatestManga = () => {
-    const [mangaList, setList] = useState<MangaType[]>([])
+    const [latestList, setList] = useState<MangaType[]>([])
     useEffect(() => {
         const getFetch = async () => {
-            const res = await services.MangaServices.getMangaList()
+            const res = await services.MangaServices.getLatestMangaList()
             const coverArts = collectingMangaCover(res)
             const mangaCovers = await services.MangaServices.getMangaCover(coverArts)
             res.map(manga => {
@@ -29,7 +29,7 @@ const LatestManga = () => {
                 <h3>Latest Updates</h3>
                 <div className="latest_updates_container">
                     <Swiper spaceBetween={10} slidesPerView={6}>
-                        {mangaList.map((el: MangaType, id: number) => {
+                        {latestList.map((el: MangaType, id: number) => {
                             return <SwiperSlide key={id}><MangaCard {...el}/></SwiperSlide>
                         })}
                     </Swiper>

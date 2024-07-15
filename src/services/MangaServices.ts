@@ -2,9 +2,13 @@ import API from "../plugins/API"
 import {MangaCoverType, MangaType} from "../types/mangaType";
 
 export default {
-    getMangaList: async (): Promise<MangaType[]> => {
+    getLatestMangaList: async (): Promise<MangaType[]> => {
+        const query = {
+            "order[latestUploadedChapter]": "asc",
+            limit: 25
+        }
         try {
-            const data = await API({url: "/manga", query: {limit: 25}})
+            const data = await API({url: "/manga", query: query})
             return data.data
         }
         catch (err) {
