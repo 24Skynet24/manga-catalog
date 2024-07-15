@@ -9,9 +9,10 @@ article.manga_card {
     height: 100%;
   }
 
-  img {
+  .manga_card_img {
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    background-size: cover;
+    background-position: 50%;
   }
 }
