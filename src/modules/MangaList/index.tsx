@@ -1,16 +1,19 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, lazy} from 'react'
 import services from "../../services"
 import {MangaType} from "../../types/mangaType"
-import MangaCard from "../../components/MangaCard";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "./latestManga.scss"
+import "./mangaList.scss"
 import collectingMangaCover from "../../utils/collectingMangaCover";
 
-const LatestManga = () => {
-    const [latestList, setList] = useState<MangaType[]>([])
+const MangaCard = lazy(() => import("../../components/MangaCard"))
+
+const MangaList = ({sectionName, params}) => {
+    const [mangaList, setList] = useState<MangaType[]>([])
     useEffect(() => {
         const getFetch = async () => {
-            const res = await services.MangaServices.getLatestMangaList()
+            let res;
+            if (params?.latest) res = await services.MangaServices.getLatestMangaList()
+            else res = await services.MangaServices.getMangaList({})
             const coverArts = collectingMangaCover(res)
             const mangaCovers = await services.MangaServices.getMangaCover(coverArts)
             res.map(manga => {
@@ -21,15 +24,15 @@ const LatestManga = () => {
             setList(res)
         }
         getFetch()
-    }, [])
+    }, [params?.latest])
 
     return (
         <>
             <section className="latest_updates">
-                <h3>Latest Updates</h3>
+                <h3>{sectionName}</h3>
                 <div className="latest_updates_container">
                     <Swiper spaceBetween={10} slidesPerView={6}>
-                        {latestList.map((el: MangaType, id: number) => {
+                        {mangaList.map((el: MangaType, id: number) => {
                             return <SwiperSlide key={id}><MangaCard {...el}/></SwiperSlide>
                         })}
                     </Swiper>
@@ -39,4 +42,4 @@ const LatestManga = () => {
     )
 }
 
-export default LatestManga
+export default MangaList
