@@ -2,6 +2,19 @@ import API from "../plugins/API"
 import {MangaCoverType, MangaType} from "../types/mangaType";
 
 export default {
+    getMangaList: async (params): Promise<MangaType[]> => {
+        params["order[latestUploadedChapter]"] = "desc"
+        if (!params.limit) params.limit = 25
+        try {
+            const data = await API({url: "/manga", query: params})
+            return data.data
+        }
+        catch (err) {
+            console.error("ERROR Manga List " + err)
+            throw new Error(err)
+        }
+    },
+
     getLatestMangaList: async (): Promise<MangaType[]> => {
         const query = {
             "order[latestUploadedChapter]": "asc",
@@ -17,10 +30,10 @@ export default {
         }
     },
 
-    getMangaCover: async (cover_arts: string[]): Promise<MangaCoverType[]> => {
+    getMangaCover: async (cover_arts: string[], limit:number = 25): Promise<MangaCoverType[]> => {
         let imagesQuery: string = ""
         cover_arts.map(el => {imagesQuery += `ids[]=${el}&`})
-        imagesQuery += "limit=25"
+        imagesQuery += `limit=${limit}`
 
         try {
             const data = await API({url: `/cover?${imagesQuery}`})
