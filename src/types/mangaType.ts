@@ -1,11 +1,14 @@
-export interface MangaType {
+import {MangaDefaultType} from "./index";
+
+
+export interface MangaType extends MangaDefaultType{
     attributes: MangaAttributesType
     id: string
     relationships: MangaRelationshipsType[]
     type: string
 }
 
-export interface MangaCoverType {
+export interface MangaCoverType extends MangaDefaultType{
     attributes: {
         description: string,
         volume: string | number,
