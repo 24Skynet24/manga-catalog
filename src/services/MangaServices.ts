@@ -1,8 +1,9 @@
 import API from "../plugins/API"
 import {MangaCoverType, MangaType} from "../types/mangaType";
+import {MangaTagType} from "../types/mangaTagType";
 
 export default {
-    getMangaList: async (params): Promise<MangaType[]> => {
+    getMangaList: async (params): Promise<MangaType[]> | never => {
         params["order[latestUploadedChapter]"] = "desc"
         if (!params.limit) params.limit = 25
         try {
@@ -15,7 +16,7 @@ export default {
         }
     },
 
-    getLatestMangaList: async (): Promise<MangaType[]> => {
+    getLatestMangaList: async (): Promise<MangaType[]> | never => {
         const query = {
             "order[latestUploadedChapter]": "asc",
             limit: 25
@@ -30,7 +31,7 @@ export default {
         }
     },
 
-    getMangaCover: async (cover_arts: string[], limit:number = 25): Promise<MangaCoverType[]> => {
+    getMangaCover: async (cover_arts: string[], limit:number = 25): Promise<MangaCoverType[]> | never => {
         let imagesQuery: string = ""
         cover_arts.map(el => {imagesQuery += `ids[]=${el}&`})
         imagesQuery += `limit=${limit}`
@@ -44,4 +45,15 @@ export default {
             throw new Error(err)
         }
     },
+
+    getMangaTagsList: async (): Promise<MangaTagType[]> | never => {
+        try {
+            const data = await API({url: "/manga/tag"})
+            return data.data
+        }
+        catch (err) {
+            console.error("ERROR Manga List " + err)
+            throw new Error(err)
+        }
+    }
 }
