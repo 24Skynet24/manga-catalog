@@ -2,12 +2,12 @@ import {useEffect, useState, lazy} from 'react'
 import services from "../../services"
 import {MangaType} from "../../types/mangaType"
 import { Swiper, SwiperSlide } from "swiper/react";
-import "./mangaList.scss"
+import "./mangaSlider.scss"
 import collectingMangaCover from "../../utils/collectingMangaCover";
 
 const MangaCard = lazy(() => import("../../components/MangaCard"))
 
-const MangaList = ({sectionName, params}) => {
+const MangaSlider = ({sectionName, params}) => {
     const [mangaList, setList] = useState<MangaType[]>([])
     useEffect(() => {
         const getFetch = async () => {
@@ -28,9 +28,9 @@ const MangaList = ({sectionName, params}) => {
 
     return (
         <>
-            <section className="latest_updates">
-                <h3>{sectionName}</h3>
-                <div className="latest_updates_container">
+            <section className="manga_slider module_section">
+                <h2>{sectionName}</h2>
+                <div className="manga_slider_container">
                     <Swiper spaceBetween={10} slidesPerView={6}>
                         {mangaList.map((el: MangaType, id: number) => {
                             return <SwiperSlide key={id}><MangaCard {...el}/></SwiperSlide>
@@ -42,4 +42,4 @@ const MangaList = ({sectionName, params}) => {
     )
 }
 
-export default MangaList
+export default MangaSlider
