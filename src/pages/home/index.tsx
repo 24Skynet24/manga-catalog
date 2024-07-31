@@ -1,10 +1,13 @@
 import {lazy} from "react";
-const MangaList = lazy(() => import("../../modules/MangaList"))
+const MangaSlider = lazy(() => import("../../modules/MangaSlider"))
+const TopTags = lazy(() => import("../../modules/TopTags"))
+
 
 const HomePage = () => {
     return (
         <main className="c_container">
-            <MangaList sectionName={"Manga online"} params={{}}/>
+            <MangaSlider sectionName={"Manga online"} params={{}}/>
+            <TopTags/>
         </main>
     )
 }
