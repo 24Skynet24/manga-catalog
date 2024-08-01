@@ -23,7 +23,7 @@ const MangaSlider = ({sectionName, params}) => {
             })
             setList(res)
         }
-        getFetch()
+        getFetch().then(r => r)
     }, [params?.latest])
 
     return (
