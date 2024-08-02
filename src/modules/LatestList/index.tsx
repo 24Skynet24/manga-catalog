@@ -19,7 +19,7 @@ const LatestList = () => {
                 mangaCovers.map(el => { if (rel === el.id) manga.attributes.img = el.attributes.fileName })
             })
             res.sort((a, b) => {
-                return getHourAgo(a.attributes.updatedAt) - getHourAgo(b.attributes.updatedAt)
+                return new Date(b.attributes.updatedAt) - new Date(a.attributes.updatedAt)
             })
             setList(res)
         }
@@ -32,7 +32,7 @@ const LatestList = () => {
                 <div className="text_block">
                     <h6>{el.attributes.title.en}</h6>
                     <span>
-                        Updated {getHourAgo(el.attributes.updatedAt)} hour ago
+                         {getHourAgo(el.attributes.updatedAt)}
                     </span>
                 </div>
             </li>
