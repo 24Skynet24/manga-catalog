@@ -1,7 +1,7 @@
 import {ApiArgs} from "../types/apiType";
 
 export default async function ({url, query, method = 'GET', headers, body}: ApiArgs) {
-    let baseUrl: string = import.meta.env.VITE_API_URL + url
+    let baseUrl: string = import.meta.env.VITE_API_URL_PROD + url
 
     if (query) {
         baseUrl += "?"
