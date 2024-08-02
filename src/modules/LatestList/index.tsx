@@ -6,6 +6,7 @@ import collectingMangaCover from "../../utils/collectingMangaCover";
 import {imgUrl} from "../../utils/getImgUrl";
 import {getHourAgo} from "../../utils/datesHelper"
 import addMangaListCovers from "../../utils/addMangaListCovers";
+import {Link} from "react-router-dom";
 
 const LatestList = () => {
     const [mangaList, setList] = useState<MangaType[]>([])
@@ -25,12 +26,16 @@ const LatestList = () => {
 
     const list = mangaList.map((el, id) => {
         return <li key={id}>
-                <div className="img_block" style={{backgroundImage: imgUrl(el.id, el.attributes.img)}}/>
+                <Link to={`/title/${el.id}`}>
+                    <div className="img_block" style={{backgroundImage: imgUrl(el.id, el.attributes.img)}}/>
+                </Link>
                 <div className="text_block">
-                    <h6>{el.attributes.title.en}</h6>
-                    <span>
-                         {getHourAgo(el.attributes.updatedAt)}
-                    </span>
+                    <h6>
+                        <Link to={`/title/${el.id}`}>{el.attributes.title.en}</Link>
+                    </h6>
+                    <Link to={`/title/${el.id}`} className="text_block_update">
+                        {getHourAgo(el.attributes.updatedAt)}
+                    </Link>
                 </div>
             </li>
     })
