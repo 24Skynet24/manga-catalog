@@ -1,10 +1,10 @@
 import API from "../plugins/API"
 import {MangaCoverType, MangaType} from "../types/mangaType";
 import {MangaTagType} from "../types/mangaTagType";
+import {getToDay} from "../utils/datesHelper";
 
 export default {
     getMangaList: async (params): Promise<MangaType[]> | never => {
-        params["order[latestUploadedChapter]"] = "desc"
         if (!params.limit) params.limit = 25
         try {
             const data = await API({url: "/manga", query: params})
@@ -16,10 +16,11 @@ export default {
         }
     },
 
-    getLatestMangaList: async (): Promise<MangaType[]> | never => {
+    getLatestMangaList: async (limit: number = 25): Promise<MangaType[]> | never => {
         const query = {
-            "order[latestUploadedChapter]": "asc",
-            limit: 25
+            "order[latestUploadedChapter]": "desc",
+            "updatedAtSince": `${getToDay()}`,
+            limit: limit
         }
         try {
             const data = await API({url: "/manga", query: query})
