@@ -1,7 +1,8 @@
-import React from "react";
+import React, {lazy} from "react"
 import {Route, Routes} from "react-router-dom"
-import HomePage from "./pages/home"
-import Header from "./components/Header";
+const HomePage = lazy(() => import("./pages/home"))
+const Header = lazy(() => import("./components/Header"))
+const Footer = lazy(() => import("./components/Footer"))
 
 const App: React.FC = () => {
     return (
@@ -11,6 +12,7 @@ const App: React.FC = () => {
                 <Route index path="/" element={<HomePage/>}/>
                 {/*<Route path="/page" element={<Page/>} />*/}
             </Routes>
+            <Footer/>
         </>
     )
 }
