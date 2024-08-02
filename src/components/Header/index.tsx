@@ -9,7 +9,6 @@ import {useCookies} from "react-cookie";
 const Header = () => {
     const [theme, setTheme] = useState("Dark")
     const [cookies, setCookie] = useCookies(['manga_catalog_theme'])
-    console.log(cookies.manga_catalog_theme)
     const changeTheme = () => {
         const clName = document.body.className
         if (!clName || !cookies.manga_catalog_theme || cookies.manga_catalog_theme === "Light") {
