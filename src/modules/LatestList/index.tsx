@@ -4,22 +4,23 @@ import {MangaType} from "../../types/mangaType";
 import services from "../../services";
 import collectingMangaCover from "../../utils/collectingMangaCover";
 import {imgUrl} from "../../utils/getImgUrl";
-
-const date = (d): string => `${new Date(d).toDateString()}`
+import {getHourAgo} from "../../utils/datesHelper"
 
 const LatestList = () => {
     const [mangaList, setList] = useState<MangaType[]>([])
     useEffect(() => {
         const getFetch = async () => {
-            const res = await services.MangaServices.getLatestMangaList()
+            const res = await services.MangaServices.getLatestMangaList(30)
             const coverArts = collectingMangaCover(res)
-            const mangaCovers = await services.MangaServices.getMangaCover(coverArts)
+            const mangaCovers = await services.MangaServices.getMangaCover(coverArts, 30)
             res.map(manga => {
                 let rel = ""
                 manga.relationships.map(relationship => { if (relationship.type === "cover_art") rel = relationship.id })
                 mangaCovers.map(el => { if (rel === el.id) manga.attributes.img = el.attributes.fileName })
             })
-            console.log(res)
+            res.sort((a, b) => {
+                return getHourAgo(a.attributes.updatedAt) - getHourAgo(b.attributes.updatedAt)
+            })
             setList(res)
         }
         getFetch().then(r => r)
@@ -30,7 +31,9 @@ const LatestList = () => {
                 <div className="img_block" style={{backgroundImage: imgUrl(el.id, el.attributes.img)}}/>
                 <div className="text_block">
                     <h6>{el.attributes.title.en}</h6>
-                    <span>{date(el.attributes.updatedAt)}</span>
+                    <span>
+                        Updated {getHourAgo(el.attributes.updatedAt)} hour ago
+                    </span>
                 </div>
             </li>
     })
