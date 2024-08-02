@@ -45,6 +45,14 @@ main {
 .dark_mode {
   background: $_black;
   color: $white;
+
+  .latest_list_container li {
+    border-bottom-color: $white;
+  }
+
+  footer.footer {
+    border-top: 1px solid $_red
+  }
 }
 
 .module_section {
