@@ -3,23 +3,24 @@ import {Button} from "@mui/material";
 import LogoLink from "../../UI/Links/LogoLink";
 import {Link} from "react-router-dom";
 import {useState} from "react";
-import services from "../../services"
+import {useCookies} from "react-cookie";
 
 
 const Header = () => {
     const [theme, setTheme] = useState("Dark")
-
+    const [cookies, setCookie] = useCookies(['manga_catalog_theme'])
+    console.log(cookies.manga_catalog_theme)
     const changeTheme = () => {
         const clName = document.body.className
-        if (!clName || services.LocalStorage.getTheme() === "Dark") {
+        if (!clName || !cookies.manga_catalog_theme || cookies.manga_catalog_theme === "Light") {
             document.body.className = "dark_mode"
-            setTheme("Light")
-            services.LocalStorage.setTheme("Light")
+            setTheme("Dark")
+            setCookie("manga_catalog_theme", "Dark")
         }
         else {
             document.body.className = ""
-            setTheme("Dark")
-            services.LocalStorage.setTheme("Dark")
+            setTheme("Light")
+            setCookie("manga_catalog_theme", "Light")
         }
     }
 
