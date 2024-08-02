@@ -4,6 +4,7 @@ import {MangaType} from "../../types/mangaType"
 import { Swiper, SwiperSlide } from "swiper/react";
 import "./mangaSlider.scss"
 import collectingMangaCover from "../../utils/collectingMangaCover";
+import addMangaListCovers from "../../utils/addMangaListCovers";
 
 const MangaCard = lazy(() => import("../../components/MangaCard"))
 
@@ -16,11 +17,7 @@ const MangaSlider = ({sectionName, params}) => {
             else res = await services.MangaServices.getMangaList({})
             const coverArts = collectingMangaCover(res)
             const mangaCovers = await services.MangaServices.getMangaCover(coverArts)
-            res.map(manga => {
-                let rel = ""
-                manga.relationships.map(relationship => { if (relationship.type === "cover_art") rel = relationship.id })
-                mangaCovers.map(el => { if (rel === el.id) manga.attributes.img = el.attributes.fileName })
-            })
+            addMangaListCovers(res, mangaCovers)
             setList(res)
         }
         getFetch().then(r => r)

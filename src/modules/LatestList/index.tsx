@@ -5,6 +5,7 @@ import services from "../../services";
 import collectingMangaCover from "../../utils/collectingMangaCover";
 import {imgUrl} from "../../utils/getImgUrl";
 import {getHourAgo} from "../../utils/datesHelper"
+import addMangaListCovers from "../../utils/addMangaListCovers";
 
 const LatestList = () => {
     const [mangaList, setList] = useState<MangaType[]>([])
@@ -13,11 +14,7 @@ const LatestList = () => {
             const res = await services.MangaServices.getLatestMangaList(30)
             const coverArts = collectingMangaCover(res)
             const mangaCovers = await services.MangaServices.getMangaCover(coverArts, 30)
-            res.map(manga => {
-                let rel = ""
-                manga.relationships.map(relationship => { if (relationship.type === "cover_art") rel = relationship.id })
-                mangaCovers.map(el => { if (rel === el.id) manga.attributes.img = el.attributes.fileName })
-            })
+            addMangaListCovers(res, mangaCovers)
             res.sort((a, b) => {
                 return new Date(b.attributes.updatedAt) - new Date(a.attributes.updatedAt)
             })
