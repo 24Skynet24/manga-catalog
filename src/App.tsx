@@ -1,8 +1,11 @@
-import React, {lazy, useEffect} from "react"
+import React, {lazy, useEffect, Suspense} from "react"
 import {Route, Routes} from "react-router-dom"
 import {useCookies} from "react-cookie";
 
 const HomePage = lazy(() => import("./pages/home"))
+const TitlePage = lazy(() => import("./pages/title"))
+
+const Loader = lazy(() => import("./components/Loader"))
 const Header = lazy(() => import("./components/Header"))
 const Footer = lazy(() => import("./components/Footer"))
 const ScrollTopButton = lazy(() => import("./UI/Buttons/ScrollTopButton"))
@@ -18,10 +21,12 @@ const App: React.FC = () => {
     return (
         <>
             <Header/>
-            <Routes>
-                <Route index path="/" element={<HomePage/>}/>
-                {/*<Route path="/page" element={<Page/>} />*/}
-            </Routes>
+            <Suspense fallback={<Loader/>}>
+                <Routes>
+                    <Route exact index path="/" element={<HomePage/>}/>
+                    <Route exact path="title/:mangaId" element={<TitlePage/>}/>
+                </Routes>
+            </Suspense>
             {/*<ScrollTopButton/>*/}
             <Footer/>
         </>
