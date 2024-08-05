@@ -4,6 +4,7 @@ import services from "../../services"
 import {imgUrl} from "../../utils/getImgUrl"
 import "./titleDetails.scss"
 import {Link} from "react-router-dom";
+import {getDate} from "../../utils/datesHelper";
 
 
 const TitleDetails = ({ mangaId }) => {
@@ -17,16 +18,13 @@ const TitleDetails = ({ mangaId }) => {
 
             res.attributes.img = cover.attributes.fileName
             res.attributes.title = Object.values(res.attributes.title)[0]
+            cps.map(el => el.attributes.updatedAt = getDate(el.attributes.publishAt))
             cps.sort((a, b) => {
                 return b.attributes.chapter - a.attributes.chapter
             })
 
-
-
             setTitle(res)
             setChapters(cps)
-            console.log(cps)
-            // console.log(res)
         }
         getTitle().then(r => r)
     }, [mangaId])
@@ -55,32 +53,36 @@ const TitleDetails = ({ mangaId }) => {
                     </div>
                 </div>
             </div>
-            <div className="title_content">
-                <div className="title_description flex flex-col">
-                    <div className="description">
-                        <h4>Description</h4>
-                        <p>{title?.attributes.description.en}</p>
-                    </div>
-                    <div className="tags">
-                        <h4>Tags</h4>
-                        <ul className="flex flex-align-center">
-                            {title?.attributes.tags.map((el, i) => {
-                                return <li key={i}>
-                                    <Link to={`/catalog?tag=${el.attributes.name.en}`}>
-                                        {el.attributes.name.en}
-                                    </Link>
+            <div className="title_content flex flex-col">
+                <div className="description">
+                    <h4>Description</h4>
+                    <p>{title?.attributes.description.en}</p>
+                </div>
+                <div className="tags">
+                    <h4>Tags</h4>
+                    <ul className="flex flex-align-center">
+                        {title?.attributes.tags.map((el, i) => {
+                            return <li key={i}>
+                                <Link to={`/catalog?tag=${el.attributes.name.en}`}>
+                                    {el.attributes.name.en}
+                                </Link>
+                            </li>
+                        })}
+                    </ul>
+                </div>
+                <div className="chapters_recommendations flex">
+                    <div className="chapters">
+                        <h4>Chapters</h4>
+                        <ul className="flex flex-col">
+                            {chapters?.map((el, i) => {
+                                return <li key={i} className="flex flex-col">
+                                    <span className="chapter_num">Chapter {el.attributes.chapter}</span>
+                                    <span className="chapter_create">{el.attributes.updatedAt}</span>
                                 </li>
                             })}
                         </ul>
                     </div>
-                    <div className="chapters">
-                        <h4>Chapters</h4>
-                        <ul>
-                            {chapters?.map((el, i) => {
-                                return <li key={i}>{el.attributes.chapter}</li>
-                            })}
-                        </ul>
-                    </div>
+                    {/*  Recommendations module  */}
                 </div>
             </div>
         </section>

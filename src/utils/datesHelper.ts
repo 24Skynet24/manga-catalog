@@ -35,8 +35,13 @@ const getToDay = (): string => {
     return `${year}-${month}-${day}T${hours}:00:00`
 }
 
+const getDate = (date: string | Date): string => {
+    return new Date(date).toLocaleDateString()
+}
+
 
 export  {
     getHourAgo,
     getToDay,
+    getDate,
 }
