@@ -1,10 +1,13 @@
-import {useParams} from "react-router-dom";
+import {useParams} from "react-router-dom"
+import TitleDetails from "../../modules/TitleDetails"
 
 const TitlePage = () => {
     const { mangaId } = useParams()
     return (
         <>
-            {mangaId}
+            <main className="c_container">
+                <TitleDetails mangaId={mangaId}/>
+            </main>
         </>
     )
 }

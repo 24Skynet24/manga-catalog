@@ -1,0 +1,116 @@
+section.title {
+  .title_header {
+    margin-bottom: 5rem;
+    &_img {
+      width: 30rem;
+      height: 45rem;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin-right: 3rem;
+      flex: none;
+    }
+
+    &_info {
+      gap: 2rem;
+
+      &_tabs {
+        gap: 3rem;
+
+        button {
+          font-size: 1.8rem;
+          border: 1px solid $_black;
+          padding: 1rem 2rem;
+          border-radius: 8px;
+          transition-property: color, borde, background-color;
+          transition-duration: .125s;
+          transition-timing-function: ease-out;
+
+          &:hover {
+            background-color: $_black;
+            color: $white;
+          }
+        }
+
+        .active-tab {
+          background-color: $_red;
+          border-color: $_red;
+          color: $white;
+        }
+      }
+    }
+
+    h1 {
+      font-size: 4.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .title_add_info {
+      margin-bottom: 2rem;
+      gap: 2rem;
+
+      span {
+        padding: .5rem;
+        border-bottom: 1px solid $_black;
+        font-size: 1.4rem;
+        font-weight: 500;
+        display: block;
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    ul {
+      gap: 1rem .5rem;
+
+      li {
+        display: flex;
+        gap: .5rem;
+        &::after {
+          content: "/";
+          font-size: 1.6rem;
+        }
+        &:last-child::after {
+          display: none;
+        }
+      }
+
+      h3 {
+        font-size: 1.6rem;
+        opacity: .7;
+      }
+    }
+  }
+
+  .title_content {
+    h4 {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .title_description {
+      gap: 3rem;
+
+      p {
+        font-size: 1.8rem;
+      }
+
+      .tags ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        a {
+          font-size: 1.8rem;
+          border-radius: 10px;
+          padding: 1rem 2rem;
+          background: $_black;
+          color: $white;
+          display: block;
+        }
+      }
+    }
+
+  }
+}
