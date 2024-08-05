@@ -7,5 +7,5 @@ export interface ApiArgs {
 }
 
 interface ApiObjectsType {
-    [key: string]: string | number
+    [key: string]: string | number | string[]
 }
