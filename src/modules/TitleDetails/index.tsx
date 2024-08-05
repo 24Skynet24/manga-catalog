@@ -5,6 +5,7 @@ import {imgUrl} from "../../utils/getImgUrl"
 import "./titleDetails.scss"
 import {Link} from "react-router-dom";
 import {getDate} from "../../utils/datesHelper";
+import TitleTag from "../../UI/Links/TitleTag";
 
 
 const TitleDetails = ({ mangaId }) => {
@@ -62,11 +63,7 @@ const TitleDetails = ({ mangaId }) => {
                     <h4>Tags</h4>
                     <ul className="flex flex-align-center">
                         {title?.attributes.tags.map((el, i) => {
-                            return <li key={i}>
-                                <Link to={`/catalog?tag=${el.attributes.name.en}`}>
-                                    {el.attributes.name.en}
-                                </Link>
-                            </li>
+                            return <li key={i}><TitleTag tagName={el.attributes.name.en} /></li>
                         })}
                     </ul>
                 </div>

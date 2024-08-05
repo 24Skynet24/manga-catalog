@@ -99,15 +99,6 @@ section.title {
     .tags ul {
       gap: 1rem;
       flex-wrap: wrap;
-
-      a {
-        font-size: 1.8rem;
-        border-radius: 10px;
-        padding: 1rem 2rem;
-        background: $_black;
-        color: $white;
-        display: block;
-      }
     }
 
     .chapters_recommendations {
