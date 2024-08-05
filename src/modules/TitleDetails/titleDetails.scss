@@ -1,6 +1,7 @@
 section.title {
   .title_header {
     margin-bottom: 5rem;
+
     &_img {
       width: 30rem;
       height: 45rem;
@@ -13,31 +14,6 @@ section.title {
 
     &_info {
       gap: 2rem;
-
-      &_tabs {
-        gap: 3rem;
-
-        button {
-          font-size: 1.8rem;
-          border: 1px solid $_black;
-          padding: 1rem 2rem;
-          border-radius: 8px;
-          transition-property: color, borde, background-color;
-          transition-duration: .125s;
-          transition-timing-function: ease-out;
-
-          &:hover {
-            background-color: $_black;
-            color: $white;
-          }
-        }
-
-        .active-tab {
-          background-color: $_red;
-          border-color: $_red;
-          color: $white;
-        }
-      }
     }
 
     h1 {
@@ -49,7 +25,7 @@ section.title {
       margin-bottom: 2rem;
       gap: 2rem;
 
-      span {
+      a {
         padding: .5rem;
         border-bottom: 1px solid $_black;
         font-size: 1.4rem;
@@ -106,7 +82,7 @@ section.title {
     }
 
     .chapters {
-      width: 30%;
+      width: 35%;
 
       ul {
         gap: 1rem;
@@ -118,6 +94,13 @@ section.title {
         background: #ECECEC;
         border-radius: 10px;
         cursor: pointer;
+
+        .name {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 65%;
+        }
       }
     }
 

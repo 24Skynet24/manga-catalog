@@ -7,6 +7,10 @@ import {Link} from "react-router-dom";
 import {getDate} from "../../utils/datesHelper";
 import TitleTag from "../../UI/Links/TitleTag";
 
+const checkChapterName = (cpName: string | null) => {
+    if (!cpName) return
+    return <span className="name" title={cpName}>{cpName}</span>
+}
 
 const TitleDetails = ({ mangaId }) => {
     const [title, setTitle] = useState<MangaType>()
@@ -19,10 +23,12 @@ const TitleDetails = ({ mangaId }) => {
 
             res.attributes.img = cover.attributes.fileName
             res.attributes.title = Object.values(res.attributes.title)[0]
-            cps.map(el => el.attributes.updatedAt = getDate(el.attributes.publishAt))
+            cps.map(el => el.attributes.publishAt = getDate(el.attributes.publishAt))
             cps.sort((a, b) => {
                 return b.attributes.chapter - a.attributes.chapter
             })
+
+            console.log(cps)
 
             setTitle(res)
             setChapters(cps)
@@ -40,10 +46,10 @@ const TitleDetails = ({ mangaId }) => {
                         <div className="flex-align-center title_add_info">
                             {/* Links */}
                             <div className="title_add_info-item">
-                                <span>{title?.attributes.year} y.</span>
+                                <Link to={`/catalog?year=${title?.attributes.year}`}>{title?.attributes.year} y.</Link>
                             </div>
                             <div className="title_add_info-item">
-                                <span>{title?.attributes.contentRating}</span>
+                                <Link to={`/catalog?contentRating=${title?.attributes.contentRating}`}>{title?.attributes.contentRating}</Link>
                             </div>
                         </div>
                         <ul className="alt_titles flex flex-wrap">
@@ -73,8 +79,14 @@ const TitleDetails = ({ mangaId }) => {
                         <ul className="flex flex-col">
                             {chapters?.map((el, i) => {
                                 return <li key={i} className="flex flex-col">
-                                    <span className="chapter_num">Chapter {el.attributes.chapter}</span>
-                                    <span className="chapter_create">{el.attributes.updatedAt}</span>
+                                    <div className="chapter_name flex-align-center gap-2">
+                                        <span className="num">Chapter {el.attributes.chapter}</span>
+                                        {checkChapterName(el.attributes.title)}
+                                    </div>
+                                    <div className="chapter_create flex-align-center gap-3">
+                                        <span className="publishAt">{el.attributes.publishAt}</span>
+                                        {/*<span className="publishAt">{el.relationships}</span>*/}
+                                    </div>
                                 </li>
                             })}
                         </ul>
