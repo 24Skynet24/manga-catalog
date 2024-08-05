@@ -1,4 +1,4 @@
-import {TagCardType} from "../../types/mangaTagType";
+import {TagCardType} from "../../types/mangaType";
 
 import comedyImg from "@/assets/img/tags/comedy.png"
 import fantasyImg from "@/assets/img/tags/fantasy.png"

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 import "./tagCard.scss"
-import {TagCardType} from "../../types/mangaTagType";
+import {TagCardType} from "../../types/mangaType";
 
 const TagCard = ({ url, img, name }: TagCardType) => {
     return (
