@@ -23,13 +23,50 @@ export interface MangaCoverType extends MangaDefaultType{
     type: string
 }
 
+export interface MangaTitleChaptersType extends MangaDefaultType {
+    attributes: {
+        title: string
+        volume: string
+        chapter: string
+        pages: number | string
+        translatedLanguage: string
+        uploader: string
+        externalUrl: string | null
+        version: number | string | null
+        createdAt: string
+        updatedAt: string
+        publishAt: string
+        readableAt: string
+    }
+    id: string
+    relationships: MangaStringObjects[]
+    type: string
+}
+
+export interface MangaTagType extends MangaDefaultType{
+    id: string
+    type: string
+    attributes: {
+        name: {
+            en: string
+        }
+    }
+    relationships: []
+}
+
+export interface TagCardType {
+    url: string
+    img: string
+    name: string
+}
+
 interface MangaRelationshipsType {
     id: string
     type: string
 }
 
 interface MangaAttributesType {
-    title: MangaStringObjects
+    title: MangaStringObjects | string
     altTitles: MangaStringObjects[]
     description: MangaStringObjects
     isLocked: boolean
