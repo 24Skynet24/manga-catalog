@@ -16,23 +16,20 @@ const getToDay = (): string => {
     let year: string | number = now.getFullYear()
     let month: string | number = now.getMonth() + 1
     let day: string | number = now.getDate()
-    let hours: string | number = now.getHours()
 
-    if (hours < 5) {
-        hours = 20
-        if (day === 1) {
-            if (month === 1) {
-                year -= 1
-                month = 12
-            } else month -= 1
-            day = new Date(year, month, 0).getDate()
-        } else day -= 1
-    } else hours = String(hours).padStart(2, '0')
+
+    if (day === 1) {
+        if (month === 1) {
+            year -= 1
+            month = 12
+        } else month -= 1
+        day = new Date(year, month, 0).getDate()
+    } else day -= 1
 
     month = String(month).padStart(2, '0')
     day = String(day).padStart(2, '0')
 
-    return `${year}-${month}-${day}T${hours}:00:00`
+    return `${year}-${month}-${day}T00:00:00`
 }
 
 const getDate = (date: string | Date): string => {

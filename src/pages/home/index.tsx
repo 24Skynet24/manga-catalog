@@ -7,7 +7,7 @@ const TopTags = lazy(() => import("../../modules/TopTags"))
 const HomePage = () => {
     return (
         <main className="c_container">
-            <MangaSlider sectionName={"Manga online"} params={{}}/>
+            <MangaSlider sectionName={"Manga online"}/>
             <TopTags/>
             <LatestList/>
         </main>

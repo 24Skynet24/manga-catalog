@@ -8,20 +8,18 @@ import addMangaListCovers from "../../utils/addMangaListCovers";
 
 const MangaCard = lazy(() => import("../../components/MangaCard"))
 
-const MangaSlider = ({sectionName, params}) => {
+const MangaSlider = ({sectionName}) => {
     const [mangaList, setList] = useState<MangaType[]>([])
     useEffect(() => {
         const getFetch = async () => {
-            let res;
-            if (params?.latest) res = await services.MangaServices.getLatestMangaList()
-            else res = await services.MangaServices.getMangaList({})
+            const res = await services.MangaServices.getMangaList({})
             const coverArts = collectingMangaCover(res)
             const mangaCovers = await services.MangaServices.getMangaCover(coverArts)
             addMangaListCovers(res, mangaCovers)
             setList(res)
         }
         getFetch().then(r => r)
-    }, [params?.latest])
+    }, [])
 
     return (
         <>
