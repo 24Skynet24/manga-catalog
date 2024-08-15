@@ -4,6 +4,7 @@ import {useCookies} from "react-cookie";
 
 const HomePage = lazy(() => import("./pages/home"))
 const TitlePage = lazy(() => import("./pages/title"))
+const CatalogPage = lazy(() => import("./pages/catalog"))
 
 const Loader = lazy(() => import("./components/Loader"))
 const Header = lazy(() => import("./components/Header"))
@@ -24,6 +25,7 @@ const App: React.FC = () => {
             <Suspense fallback={<Loader/>}>
                 <Routes>
                     <Route exact index path="/" element={<HomePage/>}/>
+                    <Route exact path="catalog" element={<CatalogPage/>}/>
                     <Route exact path="title/:mangaId" element={<TitlePage/>}/>
                 </Routes>
             </Suspense>
