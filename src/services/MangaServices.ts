@@ -21,6 +21,16 @@ export default {
         }
     },
 
+    getRandomManga: async (): Promise<MangaType> | never => {
+        try {
+            const data = await API({url: `/manga/random`})
+            return data.data
+        }  catch (err) {
+            console.error("ERROR Manga title " + err)
+            throw new Error(err)
+        }
+    },
+
     getLatestMangaList: async (limit: number = 25): Promise<MangaType[]> | never => {
         const query = {
             "order[latestUploadedChapter]": "desc",
@@ -63,7 +73,7 @@ export default {
         }
     },
 
-    getMangaTitle: async (mangaId: string | undefined): Promise<MangaType>=> {
+    getMangaTitle: async (mangaId: string | undefined): Promise<MangaType> | never => {
         try {
             const data = await API({url: `/manga/${mangaId}`})
             return data.data

@@ -1,12 +1,14 @@
 import "./header.scss"
 import {Button} from "@mui/material";
 import LogoLink from "../../UI/Links/LogoLink";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {useCookies} from "react-cookie";
+import services from "../../services"
 
 
 const Header = () => {
+    const navigate = useNavigate();
     const [theme, setTheme] = useState("Dark")
     const [cookies, setCookie] = useCookies(['manga_catalog_theme'])
     const changeTheme = () => {
@@ -22,6 +24,10 @@ const Header = () => {
             setCookie("manga_catalog_theme", "Light")
         }
     }
+    const redirectToRandom = async () => {
+        const res = await services.MangaServices.getRandomManga()
+        navigate(`/title/${res.id}`)
+    }
 
     return (
         <header className="header">
@@ -33,7 +39,7 @@ const Header = () => {
                             <Link to="/catalog">Catalog</Link>
                         </li>
                         <li>
-                            <Link to="/catalog">Latest</Link>
+                            <span onClick={redirectToRandom}>Random</span>
                         </li>
                         <li>
                             <span>Search</span>
