@@ -1,5 +1,11 @@
 import API from "../plugins/API"
-import {MangaCoverType, MangaTitleChaptersType, MangaType, MangaTagType} from "../types/mangaType";
+import {
+    MangaCoverType,
+    MangaTitleChapterType,
+    MangaType,
+    MangaTagType,
+    MangaChapterScanGroup
+} from "../types/mangaType";
 import {getToDay} from "../utils/datesHelper";
 
 export default {
@@ -77,7 +83,7 @@ export default {
         }
     },
 
-    getTitleChapters: async (mangaId: string, offset: number = 0): Promise<MangaTitleChaptersType[]> | never => {
+    getTitleChapters: async (mangaId: string, offset: number = 0): Promise<MangaTitleChapterType[]> | never => {
         const query = {
             offset: offset,
             manga: mangaId,
@@ -91,5 +97,17 @@ export default {
             console.error("ERROR Title Chapters " + err)
             throw new Error(err)
         }
-    }
+    },
+
+    getScanGroups: async (scanGroupsId: string[] = []): Promise<MangaChapterScanGroup[]> | never => {
+        let query: string = "?limit=100&"
+        scanGroupsId.map(el => {query += `ids[]=${el}&`})
+        try {
+            const data = await API({url: `/group${query}`,})
+            return data.data
+        }  catch (err) {
+            console.error("ERROR Title Chapters " + err)
+            throw new Error(err)
+        }
+    },
 }

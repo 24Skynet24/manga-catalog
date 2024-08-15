@@ -83,25 +83,6 @@ section.title {
 
     .chapters {
       width: 35%;
-
-      ul {
-        gap: 1rem;
-      }
-
-      li {
-        padding: 1rem 1.5rem;
-        font-size: 1.6rem;
-        background: #ECECEC;
-        border-radius: 10px;
-        cursor: pointer;
-
-        .name {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          max-width: 65%;
-        }
-      }
     }
 
   }

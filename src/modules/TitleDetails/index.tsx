@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react"
-import {MangaType, MangaTitleChaptersType} from "../../types/mangaType"
+import {useEffect, useState, lazy} from "react"
+import {MangaType, MangaTitleChapterType} from "../../types/mangaType"
 import services from "../../services"
 import {imgUrl} from "../../utils/getImgUrl"
 import "./titleDetails.scss"
@@ -7,31 +7,36 @@ import {Link} from "react-router-dom";
 import {getDate} from "../../utils/datesHelper";
 import TitleTag from "../../UI/Links/TitleTag";
 
-const checkChapterName = (cpName: string | null) => {
-    if (!cpName) return
-    return <span className="name" title={cpName}>{cpName}</span>
-}
+const ChaptersList = lazy(() => import("../../components/ChaptersList"))
 
 const TitleDetails = ({ mangaId }) => {
     const [title, setTitle] = useState<MangaType>()
-    const [chapters, setChapters] = useState<MangaTitleChaptersType[]>()
+    const [chapters, setChapters] = useState<MangaTitleChapterType[]>()
+    const [scanGroupsUniqId, setScanGroupsId] = useState<Array<string>>()
+
     useEffect(() => {
         const getTitle = async (): Promise<void> => {
+            const scanGroupsId: Set<string> = new Set()
+
             const res = await services.MangaServices.getMangaTitle(mangaId)
             const cover = await services.MangaServices.getTitleCover(res.relationships.filter(i => i.type === "cover_art")[0].id)
             const cps = await services.MangaServices.getTitleChapters(mangaId)
 
             res.attributes.img = cover.attributes.fileName
             res.attributes.title = Object.values(res.attributes.title)[0]
-            cps.map(el => el.attributes.publishAt = getDate(el.attributes.publishAt))
+            cps.map(el => {
+                el.relationships.forEach(rel => {
+                    if (rel.type === "scanlation_group") scanGroupsId.add(rel.id)
+                })
+                return el.attributes.publishAt = getDate(el.attributes.publishAt)
+            })
             cps.sort((a, b) => {
                 return b.attributes.chapter - a.attributes.chapter
             })
 
-            console.log(cps)
-
             setTitle(res)
             setChapters(cps)
+            setScanGroupsId(Array.from(scanGroupsId))
         }
         getTitle().then(r => r)
     }, [mangaId])
@@ -76,20 +81,7 @@ const TitleDetails = ({ mangaId }) => {
                 <div className="chapters_recommendations flex">
                     <div className="chapters">
                         <h4>Chapters</h4>
-                        <ul className="flex flex-col">
-                            {chapters?.map((el, i) => {
-                                return <li key={i} className="flex flex-col">
-                                    <div className="chapter_name flex-align-center gap-2">
-                                        <span className="num">Chapter {el.attributes.chapter}</span>
-                                        {checkChapterName(el.attributes.title)}
-                                    </div>
-                                    <div className="chapter_create flex-align-center gap-3">
-                                        <span className="publishAt">{el.attributes.publishAt}</span>
-                                        {/*<span className="publishAt">{el.relationships}</span>*/}
-                                    </div>
-                                </li>
-                            })}
-                        </ul>
+                        <ChaptersList chapters={chapters} scanGroupsId={scanGroupsUniqId}/>
                     </div>
                     {/*  Recommendations module  */}
                 </div>

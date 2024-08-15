@@ -23,7 +23,7 @@ export interface MangaCoverType extends MangaDefaultType{
     type: string
 }
 
-export interface MangaTitleChaptersType extends MangaDefaultType {
+export interface MangaTitleChapterType extends MangaDefaultType {
     attributes: {
         title: string
         volume: string
@@ -37,10 +37,39 @@ export interface MangaTitleChaptersType extends MangaDefaultType {
         updatedAt: string
         publishAt: string
         readableAt: string
+        scanGroupName?: string | null
     }
     id: string
-    relationships: MangaStringObjects[]
+    relationships: DefaultRelationshipsType[] | []
     type: string
+}
+
+export interface MangaChapterScanGroup extends MangaDefaultType {
+    id: string
+    type: string
+    attributes: {
+        name: string,
+        altNames: MangaStringObjects[] | [],
+        locked: boolean,
+        website: string | null,
+        ircServer: string | null,
+        ircChannel: string | null,
+        discord: string | null,
+        contactEmail: string | null,
+        description: string | null,
+        twitter: string | null,
+        mangaUpdates: string | null,
+        focusedLanguages: string[],
+        official: boolean,
+        verified: boolean,
+        inactive: boolean,
+        publishDelay: string | null,
+        exLicensed: boolean,
+        createdAt: string,
+        updatedAt: string,
+        version: number
+    }
+    relationships: []
 }
 
 export interface MangaTagType extends MangaDefaultType{
@@ -99,6 +128,12 @@ interface MangaTagsType {
     id: string | number
     relationships: MangaRelationshipsType[],
     type: string
+}
+
+interface DefaultRelationshipsType {
+    type: string
+    id: string
+    [key: string]: string;
 }
 
 interface MangaStringObjects {
