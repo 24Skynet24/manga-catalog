@@ -1,6 +1,7 @@
 @import "tailwind";
 @import "../fonts/cent_comics";
 @import "../fonts/roboto";
+@import "darkMode";
 
 
 * {
@@ -19,6 +20,11 @@ html {
   font-size: 10px;
 }
 
+body {
+  background: $white;
+  color: $_black;
+}
+
 a, button, input {
   outline: none;
 }
@@ -26,4 +32,30 @@ a, button, input {
 a, button {
   cursor: pointer;
   text-decoration: none;
+}
+
+main {
+  padding: 3rem 0;
+}
+
+.c_container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+
+
+.module_section {
+  margin-bottom: 5rem;
+
+  h1 {
+    font-size: 2.4rem;
+    font-weight: 500;
+  }
+
+  h2 {
+    font-size: 2.4rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
 }

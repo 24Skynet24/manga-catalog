@@ -1,0 +1,45 @@
+.content_container {
+  .content {
+    width: 63rem;
+    max-width: 65%;
+
+    &_wrap {
+      gap: 2rem 1.5rem;
+    }
+  }
+
+  .filters {
+    max-width: 30%;
+    width: 30rem;
+
+    &_list {
+      gap: 2rem;
+    }
+
+    &_item {
+      &_name {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      &_list {
+        height: 30rem;
+        overflow-y: auto;
+        padding-left: 1rem;
+
+        span {
+          font-size: 1.6rem;
+        }
+      }
+
+      &_row {
+        display: flex;
+        flex-wrap: wrap;
+
+        span {
+          font-size: 1.6rem;
+        }
+      }
+    }
+  }
+}
