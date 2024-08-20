@@ -2,8 +2,11 @@ import "./catalog.scss"
 import {FormControlLabel, Checkbox} from "@mui/material"
 import {useEffect, useState} from "react"
 import services from "../../services"
-import {MangaTagType} from "../../types/mangaType"
+import {MangaTagType, MangaType} from "../../types/mangaType"
 import {catalogFilters} from "./data"
+import collectingMangaCover from "../../utils/collectingMangaCover";
+import addMangaListCovers from "../../utils/addMangaListCovers";
+import MangaCard from "../../components/MangaCard";
 
 const colors: string[] = ["#B32525"]
 
@@ -28,19 +31,34 @@ const CatalogListItem = ({name, color}) => {
 
 const Catalog = ({tagsSelect, yearSelect, contentRatingSelect}) => {
     const [tags, setTags] = useState<MangaTagType[]>([])
+    const [mangaList, setManga] = useState<MangaType[]>([])
     useEffect(() => {
         const getTags = async () => {
             const res = await services.MangaServices.getMangaTagsList()
             res.sort((a,b) => a.attributes.name.en.localeCompare(b.attributes.name.en))
             setTags(res)
         }
+        const getManga = async () => {
+            const res = await services.MangaServices.getMangaList({})
+            const coverArts = collectingMangaCover(res)
+            const mangaCovers = await services.MangaServices.getMangaCover(coverArts)
+            addMangaListCovers(res, mangaCovers)
+            setManga(res)
+        }
         getTags().then(r => r)
+        getManga().then(r => r)
     }, [])
     return (
         <section className="module_section">
             <h1>Catalog</h1>
             <div className="content_container flex-between">
-                <div className="content"></div>
+                <div className="content">
+                    <div className="content_wrap flex flex-wrap">
+                        {mangaList.map((el, id) => {
+                            return <MangaCard {...el} key={id}/>
+                        })}
+                    </div>
+                </div>
                 <aside className="filters">
                     <h2>Filters</h2>
                     <form>
